@@ -1,3 +1,1 @@
-This project uses the following plugins in IntelliJ.
-Lombok
-JFormDesigner
+Plugins that this project use: Lombok, JFormDesigner
