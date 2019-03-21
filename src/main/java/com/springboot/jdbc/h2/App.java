@@ -36,15 +36,14 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         carJdbcRepository.insert(new Car("make1", "name1", "color1"));
-        carJdbcRepository.insert(new Car("make2", "name2", "color2"));
+        carJdbcRepository.insert(new Car("make2", "name2", "red"));
 
         dealerJdbcRepository.insert(new Dealer("name1"));
         dealerJdbcRepository.insert(new Dealer("name2"));
 
         carDealerJdbcRepository.insert(new CarDealer(1, 1, 0, 0));
-        carDealerJdbcRepository.insert(new CarDealer(1, 2, 0, 0));
-        carDealerJdbcRepository.update(new CarDealer(1, 2, 0, 2));
-        carDealerJdbcRepository.deleteByCarIdDealerId(1,1);
+        carDealerJdbcRepository.insert(new CarDealer(2, 2, 0, 0));
+        carDealerJdbcRepository.update(new CarDealer(2, 2, 0, 2));
 
         createFrame();
     }
