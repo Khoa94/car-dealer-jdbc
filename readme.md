@@ -1,11 +1,11 @@
 Plugins that this project use: Lombok, JFormDesigner
 
 
-How to run h2 console:
+How to access the h2 console:
 1) Run the application
 2) Go to http://localhost:8080/h2-console
 3) In JDBC URL, enter: jdbc:h2:mem:testdb
-4) Hit Connect.
+4) Hit "Connect".
 
 
 Current issue:
