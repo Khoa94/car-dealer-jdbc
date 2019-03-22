@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,28 +48,21 @@ public class App implements CommandLineRunner {
         createFrame();
     }
 
-    @PostConstruct
     public void createFrame() {
         JFrame jFrame = new JFrame("App");
         jFrame.setContentPane(new App().panelMain);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
+    }
+
+
+    public App() {
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 carJdbcRepository.insert(new Car("make3", "name3", "color3"));
             }
         });
-    }
-
-
-    public App() {
-//        addCarButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                carJdbcRepository.insert(new Car("make3", "name3", "color3"));
-//            }
-//        });
     }
 }
