@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,7 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         carJdbcRepository.insert(new Car("make1", "name1", "color1"));
-        carJdbcRepository.insert(new Car("make2", "name2", "red"));
+        carJdbcRepository.insert(new Car("make2", "redName2", "color2"));
 
         dealerJdbcRepository.insert(new Dealer("name1"));
         dealerJdbcRepository.insert(new Dealer("name2"));
@@ -48,21 +49,28 @@ public class App implements CommandLineRunner {
         createFrame();
     }
 
-
+    @PostConstruct
     public void createFrame() {
         JFrame jFrame = new JFrame("App");
         jFrame.setContentPane(new App().panelMain);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
-    }
-
-    public App() {
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 carJdbcRepository.insert(new Car("make3", "name3", "color3"));
             }
         });
+    }
+
+
+    public App() {
+//        addCarButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                carJdbcRepository.insert(new Car("make3", "name3", "color3"));
+//            }
+//        });
     }
 }
