@@ -21,12 +21,12 @@ public class CarJdbcRepository {
     }
 
     public int insert(Car car){
-        return jdbcTemplate.update("insert into car (make, name, color) values(?, ?, ?)",
-                new Object[]{car.getMake(), car.getName(), car.getColor()});
+        return jdbcTemplate.update("insert into car (make, name) values(?, ?)",
+                new Object[]{car.getMake(), car.getName()});
     }
 
     public int update(Car car){
-        return jdbcTemplate.update("update car set make=?, name=?, color=? where id=?",
-                new Object[] {car.getMake(), car.getName(), car.getColor(), car.getId()});
+        return jdbcTemplate.update("update car set make=?, name=? where id=?",
+                new Object[] {car.getMake(), car.getName(), car.getId()});
     }
 }
