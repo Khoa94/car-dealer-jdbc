@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CarJdbcRepository {
 
@@ -13,7 +15,12 @@ public class CarJdbcRepository {
 
     public Car findById(int id){
         return jdbcTemplate.queryForObject("select * from car where id=?", new Object[] {id},
-                new BeanPropertyRowMapper<Car>(Car.class));
+                new BeanPropertyRowMapper<>(Car.class));
+    }
+
+    public List<Car> findAll(){
+        return jdbcTemplate.query("select * from car",
+                new BeanPropertyRowMapper<>(Car.class));
     }
 
     public int deleteById(int id){

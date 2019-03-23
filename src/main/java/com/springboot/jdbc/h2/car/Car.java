@@ -2,9 +2,11 @@ package com.springboot.jdbc.h2.car;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Car {
     int id;
     String make;

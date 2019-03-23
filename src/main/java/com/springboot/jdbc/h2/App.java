@@ -54,6 +54,7 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        //Sample data
         carJdbcRepository.insert(new Car("make1", "name1"));
         carJdbcRepository.insert(new Car("make2", "redName2"));
 

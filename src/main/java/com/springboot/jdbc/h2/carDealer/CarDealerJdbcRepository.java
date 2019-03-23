@@ -1,13 +1,36 @@
 package com.springboot.jdbc.h2.carDealer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class CarDealerJdbcRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    public CarDealer findByCarIdDealerId(int carId, int dealerId){
+        return jdbcTemplate.queryForObject("select * from car_dealer where car_id=? and dealer_id=?", new Object[] {carId, dealerId},
+                new BeanPropertyRowMapper<>(CarDealer.class));
+    }
+
+    public List<CarDealer> findByCarId(int carId){
+        return jdbcTemplate.query("select * from car_dealer where car_id=?", new Object[] {carId},
+                new BeanPropertyRowMapper<>(CarDealer.class));
+    }
+
+    public List<CarDealer> findByDealerId(int dealerId){
+        return jdbcTemplate.query("select * from car_dealer where dealer_id=?", new Object[] {dealerId},
+                new BeanPropertyRowMapper<>(CarDealer.class));
+    }
+
+    public List<CarDealer> findAll(){
+        return jdbcTemplate.query("select * from car_dealer",
+                new BeanPropertyRowMapper<>(CarDealer.class));
+    }
 
     public int deleteByCarIdDealerId(int carId, int dealerId){
         return jdbcTemplate.update("delete from car_dealer where car_id=? and dealer_id=?", new Object[] {carId, dealerId});
