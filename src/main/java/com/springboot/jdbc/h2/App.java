@@ -2,6 +2,7 @@ package com.springboot.jdbc.h2;
 
 import com.springboot.jdbc.h2.car.Car;
 import com.springboot.jdbc.h2.car.CarJdbcRepository;
+import com.springboot.jdbc.h2.carDealer.CarDealer;
 import com.springboot.jdbc.h2.carDealer.CarDealerJdbcRepository;
 import com.springboot.jdbc.h2.dealer.Dealer;
 import com.springboot.jdbc.h2.dealer.DealerJdbcRepository;
@@ -40,8 +41,12 @@ public class App implements CommandLineRunner {
     private JButton updateCarDealerButton;
     private JButton deleteByCarIdButton;
     private JButton deleteByDealerIdButton;
-    private JButton deleteByDealerIdButton1;
-    private JButton requestCarIdFromButton;
+    private JButton deleteByDealerIdAndCarIdButton;
+    private JButton requestCarIdFromDealerIdButton;
+    private JTextArea carDealerCarIdText;
+    private JTextArea carDealerDealerIdText;
+    private JTextArea availableCountText;
+    private JTextArea requestCountText;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(App.class).headless(false).run(args);
@@ -50,14 +55,14 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         carJdbcRepository.insert(new Car("make1", "name1"));
-//        carJdbcRepository.insert(new Car("make2", "redName2", "color2"));
-//
-//        dealerJdbcRepository.insert(new Dealer("name1"));
-//        dealerJdbcRepository.insert(new Dealer("name2"));
-//
-//        carDealerJdbcRepository.insert(new CarDealer(1, 1, 0, 0));
-//        carDealerJdbcRepository.insert(new CarDealer(2, 2, 0, 0));
-//        carDealerJdbcRepository.update(new CarDealer(2, 2, 0, 2));
+        carJdbcRepository.insert(new Car("make2", "redName2"));
+
+        dealerJdbcRepository.insert(new Dealer("name1"));
+        dealerJdbcRepository.insert(new Dealer("name2"));
+
+        carDealerJdbcRepository.insert(new CarDealer(1, 1, 0, 0));
+        carDealerJdbcRepository.insert(new CarDealer(2, 2, 0, 0));
+        carDealerJdbcRepository.update(new CarDealer(2, 2, 0, 2));
 
         createFrame();
     }
@@ -107,5 +112,41 @@ public class App implements CommandLineRunner {
             }
         });
 
+        addCarDealerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.insert(new CarDealer(Integer.valueOf(carDealerCarIdText.getText()), Integer.valueOf(carDealerDealerIdText.getText()), Integer.valueOf(availableCountText.getText()), Integer.valueOf(requestCountText.getText())));
+            }
+        });
+        updateCarDealerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.update(new CarDealer(Integer.valueOf(carDealerCarIdText.getText()), Integer.valueOf(carDealerDealerIdText.getText()), Integer.valueOf(availableCountText.getText()), Integer.valueOf(requestCountText.getText())));
+            }
+        });
+        deleteByCarIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.deleteByCarId(Integer.valueOf(carDealerCarIdText.getText()));
+            }
+        });
+        deleteByDealerIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.deleteByDealerId(Integer.valueOf(carDealerDealerIdText.getText()));
+            }
+        });
+        deleteByDealerIdAndCarIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.deleteByCarIdDealerId(Integer.valueOf(carDealerCarIdText.getText()), Integer.valueOf(carDealerDealerIdText.getText()));
+            }
+        });
+        requestCarIdFromDealerIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carDealerJdbcRepository.incrementRequestCount(Integer.valueOf(carDealerCarIdText.getText()), Integer.valueOf(carDealerDealerIdText.getText()));
+            }
+        });
     }
 }

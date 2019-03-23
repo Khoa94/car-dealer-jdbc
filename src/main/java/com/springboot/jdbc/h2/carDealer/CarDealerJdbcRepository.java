@@ -30,4 +30,9 @@ public class CarDealerJdbcRepository {
         return jdbcTemplate.update("update car_dealer set available_count=?, request_count=? where car_id=? and dealer_id=?",
                 new Object[] {carDealer.getAvailableCount(), carDealer.getRequestCount(), carDealer.getCarId(), carDealer.getDealerId()});
     }
+
+    public int incrementRequestCount(int carId, int dealerId){
+        return jdbcTemplate.update("update car_dealer set request_count=request_count+1 where car_id=? and dealer_id=?",
+                new Object[] {carId, dealerId});
+    }
 }
