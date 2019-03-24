@@ -10,4 +10,6 @@ How to access the h2 console:
 
 Current issue:
 Line 156 to line 162 in App.java: I set the data for the JTable but when I run the application, the data is not displayed.
-For now, to see the data in the table, you'll need to use the h2 console.
+For now, to see the data in the table, you'll need to use the h2 console. 
+
+You can insert, update and delete data using the Java Swing UI.
