@@ -9,9 +9,5 @@ How to access the h2 console:
 
 
 Current issue:
-Line 65 in App.java:
-carJdbcRepository.insert(new Car("make3", "name3", "color3"));
-
-carJdbcRepository is null. One possible reason: App() is run before @Autowired is run. We need to find a way to make @Autowired run before App().
-
-carJdbcRepository works fine in the method: run(String... args).
+Line 156 to line 162 in App.java: I set the data for the JTable but when I run the application, the data is not displayed.
+For now, to see the data in the table, you'll need to use the h2 console.
