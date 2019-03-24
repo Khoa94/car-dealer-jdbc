@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,6 +49,7 @@ public class App implements CommandLineRunner {
     private JTextArea carDealerDealerIdText;
     private JTextArea availableCountText;
     private JTextArea requestCountText;
+    private JTable carTable;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(App.class).headless(false).run(args);
@@ -149,5 +152,31 @@ public class App implements CommandLineRunner {
                 carDealerJdbcRepository.incrementRequestCount(Integer.valueOf(carDealerCarIdText.getText()), Integer.valueOf(carDealerDealerIdText.getText()));
             }
         });
+
+        Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3"},
+                { "Row2-Column1", "Row2-Column2", "Row2-Column3"} };
+        Object columnNames[] = { "Column One", "Column Two", "Column Three"};
+        DefaultTableModel model = (DefaultTableModel) carTable.getModel();
+        model.addColumn(columnNames);
+        model.addRow(rowData);
+        carTable.setModel(model);
+    }
+
+    public void setData(Car data) {
+        carMakeText.setText(data.getMake());
+        carNameText.setText(data.getName());
+    }
+
+    public void getData(Car data) {
+        data.setMake(carMakeText.getText());
+        data.setName(carNameText.getText());
+    }
+
+    public boolean isModified(Car data) {
+        if (carMakeText.getText() != null ? !carMakeText.getText().equals(data.getMake()) : data.getMake() != null)
+            return true;
+        if (carNameText.getText() != null ? !carNameText.getText().equals(data.getName()) : data.getName() != null)
+            return true;
+        return false;
     }
 }
